@@ -3,6 +3,7 @@ import json
 import logging
 
 from fastapi import FastAPI, Request, HTTPException
+from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
 
 from . import config, db, processing, security
@@ -125,3 +126,8 @@ async def stats():
 @app.get("/health")
 async def health():
     return {"ok": True}
+
+
+@app.get("/")
+async def root():
+    return RedirectResponse(url="/docs")
